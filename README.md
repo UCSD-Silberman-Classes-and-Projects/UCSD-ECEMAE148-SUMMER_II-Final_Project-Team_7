@@ -320,10 +320,10 @@ The final close-range controller is stored in `flag_override_alterative.py`. The
 ## Final Project Documentation
 
 - [Final Project Presentation](https://canva.link/cs8pddsk6u9s53z) — includes the final Gantt chart
-- [Progress Update 1](https://docs.google.com/presentation/d/1PcwKYoQy9qChWULbBPM9G7U1BvT1Eh_F-7xbM_thogo/edit?usp=sharing)
-- [Progress Update 2](https://docs.google.com/presentation/d/1O7TpyJ2FOgLmPWjsEIvTT7KbvIdUvB2rIri6aobAf58/edit?usp=sharing)
-- [Progress Update 3](https://docs.google.com/presentation/d/1aCJ6-ilCrfEd1O_nXW9QFnMKlvR-987CgDM7sW6m3Tc/edit?usp=sharing)
-- [Progress Update 4](https://docs.google.com/presentation/d/1OJnH7KM3IYKkB1JIBEP8HNq9V_1NIHCVKdMrLFokIOc/edit?usp=sharing)
+- [Initial Project Proposal](https://docs.google.com/presentation/d/1PcwKYoQy9qChWULbBPM9G7U1BvT1Eh_F-7xbM_thogo/edit?usp=sharing)
+- [Progress Update 1](https://docs.google.com/presentation/d/1O7TpyJ2FOgLmPWjsEIvTT7KbvIdUvB2rIri6aobAf58/edit?usp=sharing)
+- [Progress Update 2](https://docs.google.com/presentation/d/1aCJ6-ilCrfEd1O_nXW9QFnMKlvR-987CgDM7sW6m3Tc/edit?usp=sharing)
+- [Progress Update 3](https://docs.google.com/presentation/d/1OJnH7KM3IYKkB1JIBEP8HNq9V_1NIHCVKdMrLFokIOc/edit?usp=sharing)
 - [Final Demonstration Video](https://youtu.be/sbvSZNVWww0)
 
 ---
