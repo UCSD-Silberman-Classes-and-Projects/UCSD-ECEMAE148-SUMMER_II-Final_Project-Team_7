@@ -437,11 +437,20 @@ The existing working GPS navigation should be preserved while flag functionality
 
 ## Repository Contents
 
+### Capture Controller Versions
+
+Two flag-controller versions are included to document the development of the capture system:
+
+- **Version 1** used the original drive-through method. The RoboCar approached the flag, paused, drove through and knocked it down, announced the capture, reversed, and returned control to GPS navigation.
+- **Version 2** was created after the flag stands were enlarged for better stability. The RoboCar announces the detected color, approaches the flag slowly, stops at close range, announces the capture, and then returns control to GPS.
+
+Version 2 represents the behavior shown in the final demonstration.
+
 | File | Purpose |
 |---|---|
 | `manage.py` | Main DonkeyCar pipeline and subsystem integration |
-| `flag_override_alterative.py` | Final close-range flag capture controller used for the revised behavior |
-| `flag_override_new.py` | Earlier drive-through, knock-down, and reverse controller |
+| `flag_override_alterative.py` | **Version 2 - Final demonstrated method.** Uses the slow approach, close-range stop, capture announcement, and return to GPS. |
+| `flag_override_new.py` | **Version 1 - Original method.** Uses the pause, drive-through, knock-down, reverse, and GPS-return sequence. |
 | `myconfig.py` | GPS, VESC, controller, throttle, steering, and PID configuration |
 | `train.py` | YOLO model-training script |
 | `weights.pt` | Trained YOLO flag-detection weights |
