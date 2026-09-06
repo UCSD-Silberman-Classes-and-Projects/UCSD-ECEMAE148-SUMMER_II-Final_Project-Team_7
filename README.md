@@ -1,114 +1,218 @@
-# Team 7 Autonomous GPS + YOLO Flag Detection Robot
+<div id="top"></div>
 
-UC San Diego MAE/ECE 148 Team 7 project integrating RTK GPS path following, DonkeyCar autonomous control, OAK-D flag detection, and audio announcement on a Raspberry Pi 5 vehicle.
+<h1 align="center">Autonomous Capture the Flag RoboCar</h1>
 
-## Project Information
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://jacobsschool.ucsd.edu/">
+    <img src="https://github.com/user-attachments/assets/1553fb49-6e27-4bc8-8958-e252f010d7d2" alt="UC San Diego Jacobs School of Engineering Logo" width="400">
+  </a>
 
-**Project:** Autonomous Capture the Flag RoboCar  
-**Course:** UC San Diego MAE/ECE 148  
-**Team:** Team 7  
-**Term:** Summer Session II 2026  
-**Repository:** https://github.com/pkorti/capture_the_flag
+  <h3>ECE/MAE 148 Final Project</h3>
+  <p>Team 7 — Summer Session II 2026</p>
 
-### Team Members
+  <img src="https://github.com/user-attachments/assets/f152939b-df00-4d88-a925-a94eef3d66d5" alt="Team 7 Autonomous Capture the Flag RoboCar" width="554">
+</div>
 
-| Team Member | Major |
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#overview">Overview</a>
+      <ul>
+        <li><a href="#key-features">Key Features</a></li>
+        <li><a href="#final-demonstration">Final Demonstration</a></li>
+      </ul>
+    </li>
+    <li><a href="#team-members">Team Members</a></li>
+    <li><a href="#project-goals">Project Goals</a>
+      <ul>
+        <li><a href="#must-have-features">Must-Have Features</a></li>
+        <li><a href="#nice-to-have-features">Nice-to-Have Features</a></li>
+      </ul>
+    </li>
+    <li><a href="#system-architecture">System Architecture</a>
+      <ul>
+        <li><a href="#final-capture-sequence">Final Capture Sequence</a></li>
+      </ul>
+    </li>
+    <li><a href="#technologies-used">Technologies Used</a></li>
+    <li><a href="#how-to-run">How to Run</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#operation-steps">Operation Steps</a></li>
+      </ul>
+    </li>
+    <li><a href="#project-results">Project Results</a>
+      <ul>
+        <li><a href="#what-worked">What Worked</a></li>
+        <li><a href="#challenges">Challenges</a></li>
+        <li><a href="#lessons-learned">Lessons Learned</a></li>
+      </ul>
+    </li>
+    <li><a href="#future-improvements">Future Improvements</a></li>
+    <li><a href="#final-project-documentation">Final Project Documentation</a></li>
+    <li><a href="#robot-design">Robot Design</a>
+      <ul>
+        <li><a href="#cad-parts">CAD Parts</a>
+          <ul>
+            <li><a href="#custom-designed-parts">Custom-Designed Parts</a></li>
+            <li><a href="#open-source-part">Open-Source Part</a></li>
+          </ul>
+        </li>
+        <li><a href="#electronic-hardware">Electronic Hardware</a></li>
+        <li><a href="#software">Software</a></li>
+      </ul>
+    </li>
+    <li><a href="#generative-ai-use">Generative AI Use</a>
+      <ul>
+        <li><a href="#llm-prompts-used-during-this-project">LLM Prompts</a></li>
+      </ul>
+    </li>
+    <li><a href="#repository-contents">Repository Contents</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+
+---
+
+## Overview
+
+This project develops an autonomous RoboCar that follows a recorded RTK GPS route while searching for designated colored flags. An OAK-D camera and YOLO object-detection model recognize pink, yellow, orange, and blue flags. When a flag is first detected, the system announces its color, temporarily overrides GPS navigation, approaches and centers on the flag slowly, stops once it is extremely close, and announces that the flag has been captured.
+
+The team originally planned to capture flags by driving through and knocking them down. During final testing, the enlarged, wind-resistant flag stands made the run-over method impractical and could disturb the vehicle's path. The final demonstration therefore defined capture as a controlled close-range stop.
+
+### Key Features
+
+- **RTK GPS navigation:** Records and autonomously follows a manually driven route.
+- **YOLO flag detection:** Recognizes pink, yellow, orange, and blue flags using the OAK-D camera.
+- **Autonomous approach:** Centers on the detected flag while approaching at a controlled speed.
+- **Final capture behavior:** Stops at close range instead of driving through the larger flag stand.
+- **Audio feedback:** Announces "[color] flag detected" and "[color] flag captured" at the appropriate mission transitions.
+- **Control arbitration:** Allows the flag controller to override GPS steering and throttle only during an active flag mission.
+
+### Final Demonstration
+
+The final demonstration shows the RoboCar following its GPS-guided route, detecting a target with YOLO, announcing the detected color, approaching slowly, stopping at close range, and announcing the capture.
+
+<div align="center">
+  <a href="https://youtu.be/sbvSZNVWww0">
+    <img src="https://img.youtube.com/vi/sbvSZNVWww0/hqdefault.jpg" alt="Team 7 Final Demonstration" width="650">
+  </a>
+  <p><a href="https://youtu.be/sbvSZNVWww0">Watch the final demonstration on YouTube</a></p>
+</div>
+
+---
+
+## Team Members
+
+| Team Member | Major | Email |
+|---|---|---|
+| Maisarah Fahmy | Electrical Engineering | [m4fahmy@ucsd.edu](mailto:m4fahmy@ucsd.edu) |
+| Grisvian Tandy | Electrical Engineering | [gtandy@ucsd.edu](mailto:gtandy@ucsd.edu) |
+| Pragnya Korti | Mechanical Engineering | [pkorti@ucsd.edu](mailto:pkorti@ucsd.edu) |
+
+---
+
+## Project Goals
+
+### Must-Have Features
+
+1. Autonomously complete GPS-guided laps while searching for a flag.
+2. Detect and identify the designated flag color using the OAK-D camera and YOLO.
+3. Navigate toward and center on the detected flag.
+4. Approach slowly and stop at close range to complete the final capture behavior.
+5. Announce the flag color when detected and announce when it is captured.
+6. Use generative AI for code generation, debugging, and system integration.
+
+### Nice-to-Have Features
+
+| Feature | Final Status |
 |---|---|
-| Maisarah Fahmy | ECE |
-| Grisvian Tandy | ECE |
-| Pragnya Korti | MAE |
+| Return to the starting point and stop automatically | Not completed; retained as future work |
+| Remember previously searched areas | Not completed; retained as a future search improvement |
+| Detection across changing lighting conditions | Partially completed; YOLO was more reliable than fixed OpenCV thresholds |
+| Support multiple designated flag colors | Completed for pink, yellow, orange, and blue |
 
-## Project Goal
+---
 
-This project focuses on developing an autonomous RoboCar capable of searching a course for a designated colored flag, navigating toward it, and capturing it by driving through and knocking it down. Using an OAK-D camera with a YOLO flag color-detection model, the RoboCar searches for the target while completing GPS-guided laps. The system integrates perception, navigation, vehicle control, and synchronized audio feedback so that a speaker announces when the flag has been captured.
+## System Architecture
 
-The overall goal is to combine **GPS-based global navigation** with **camera-based local flag detection and approach behavior** on a single autonomous vehicle.
-
-## Project Requirements
-
-### Must Haves
-
-The final project requirements were to:
-
-1. Autonomously complete GPS-guided laps while searching for the flag.
-2. Detect the designated flag color using the OAK-D camera and YOLO.
-3. Navigate toward the detected flag.
-4. Drive through and knock down the flag.
-5. Play a synchronized voice announcement after capture.
-6. Use generative AI for code development, debugging, and integration.
-
-### Nice to Haves
-
-The team also identified the following stretch goals:
-
-| Nice-to-have feature | Final project status |
-|---|---|
-| Return to the starting point after all captures and stop automatically | Not completed; return-to-home remained future work |
-| Remember previously searched areas | Not completed; identified as a future search-behavior improvement |
-| Detection across different lighting conditions, including night | Partially addressed; YOLO improved reliability across changing outdoor lighting, but full night performance was not established |
-| Support multiple designated flag colors | Implemented in the detector with PINK, YELLOW, ORANGE, and BLUE classes |
-| Add obstacle detection with LiDAR | Not implemented |
-
-## Main Contributions
-
-The project combines several subsystems into one autonomous capture-the-flag workflow:
-
-- **RTK GPS path following:** Record a route and use DonkeyCar path following to complete autonomous laps.
-- **YOLO flag detection:** Replace the original fixed-threshold OpenCV detector with a trained YOLO model for more robust flag recognition under changing outdoor conditions.
-- **Autonomous flag approach:** Use the detected flag position and apparent size to steer toward the target and initiate the capture maneuver.
-- **GPS / flag control arbitration:** Allow the flag mission to temporarily override normal GPS driving during a capture attempt.
-- **Audio feedback:** Trigger a spoken announcement when the flag-capture action occurs.
-- **Integrated testing and debugging:** Test navigation, detection, capture, and voice components separately before combining them into the final vehicle pipeline.
-
-## System Overview
-
-The system combines:
-
-- Raspberry Pi 5
-- DonkeyCar
-- RTK GPS
-- VESC motor/steering controller
-- Logitech F710 gamepad
-- OAK-D camera
-- Jabra SPEAK 510 USB speaker
-- GPS path recording and autonomous path following
-- YOLO-based four-color flag detection
-- Automatic flag approach, hit, reverse, and return to GPS
-
-Mission flow:
+The system combines GPS-based global navigation with camera-based local flag control. GPS controls the RoboCar normally. Once YOLO confirms a flag, the flag mission temporarily supplies the steering and throttle commands. The detected bounding-box center determines steering, while bounding-box area estimates proximity.
 
 ```text
-FOLLOW GPS PATH
-      |
-      v
-YOLO DETECTS FLAG
-      |
-      v
-TRACK / CENTER FLAG
-      |
-      v
-APPROACH FLAG
-      |
-      v
-   HIT FLAG
-      |
-      v
-   REVERSE
-      |
-      v
-RETURN TO GPS PATH
+POINT ONE RTK GPS
+        |
+        v
+FOLLOW RECORDED ROUTE
+        |
+        v
+OAK-D CAMERA -> YOLO FLAG DETECTION
+        |
+        v
+FLAG MISSION OVERRIDES GPS
+        |
+        v
+VESC STEERING + THROTTLE
 ```
 
-## Hardware
+### Final Capture Sequence
 
-| Component | Purpose |
-|---|---|
-| Raspberry Pi 5 | Main onboard computer |
-| Point One RTK GPS | Vehicle localization |
-| VESC | Steering and throttle control |
-| Logitech F710 | Manual driving and mission controls |
-| OAK-D | Camera for YOLO flag detection |
-| Jabra SPEAK 510 | Audio announcements |
+```text
+FOLLOW GPS ROUTE
+        |
+        v
+YOLO CONFIRMS FLAG COLOR
+        |
+        v
+ANNOUNCE "[COLOR] FLAG DETECTED"
+        |
+        v
+APPROACH SLOWLY + CENTER FLAG
+        |
+        v
+FLAG REACHES CLOSE-RANGE THRESHOLD
+        |
+        v
+STOP VEHICLE
+        |
+        v
+ANNOUNCE "[COLOR] FLAG CAPTURED"
+```
+
+The earlier drive-through, knock-down, and reverse sequence was replaced for the final video because the redesigned flag stands were too large and stable for a consistent run-over capture.
+
+---
+
+## Technologies Used
+
+- Raspberry Pi 5
+- DonkeyCar 5.3.0
+- Python
+- Point One RTK GPS
+- OAK-D camera and DepthAI
+- Ultralytics YOLO
+- OpenCV during early prototyping
+- VESC motor and steering controller
+- Logitech F710 controller
+- Jabra SPEAK 510 USB speaker
+- `espeak` and ALSA audio playback
+
+---
+
+## How to Run
+
+### Prerequisites
+
+- Raspberry Pi 5 with the Team 7 DonkeyCar environment
+- Point One RTK GPS connected and receiving corrections
+- OAK-D camera connected
+- VESC connected and calibrated
+- Logitech F710 in **X mode**
+- Jabra USB speaker connected
+- YOLO weights available in the project directory
 
 Typical Team 7 device assignments:
 
@@ -117,15 +221,14 @@ Point One runner:       /dev/ttyUSB0
 DonkeyCar GPS NMEA:     /dev/ttyUSB1
 VESC:                   /dev/ttyACM0
 Logitech F710:          /dev/input/js0
+Jabra speaker:          plughw:2,0
 ```
 
-Device numbering can change after reconnecting hardware.
+USB device numbers may change after reconnecting hardware.
 
----
+### Operation Steps
 
-## Software Environments
-
-### Point One RTK Runner
+#### 1. Start Point One RTK corrections
 
 ```bash
 cd ~/quectel/p1_runner
@@ -133,9 +236,9 @@ conda activate py37
 python3 bin/runner.py --device-id <DEVICE_ID> --polaris <POLARIS_PASSWORD> --device-port /dev/ttyUSB0
 ```
 
-Keep this terminal running while recording or following GPS paths.
+Keep this terminal running.
 
-### DonkeyCar
+#### 2. Start DonkeyCar
 
 From another SSH terminal:
 
@@ -146,712 +249,211 @@ cd ~/gpscar
 python3 manage.py drive
 ```
 
+#### 3. Record a GPS route
+
+Remain in `user` mode:
+
+1. Place the RoboCar at the physical starting point.
+2. Press **B** to reset the GPS origin.
+3. Confirm `pos/x` and `pos/y` are near zero.
+4. Press **LB** to begin recording.
+5. Manually drive one smooth lap.
+6. Press **LB** again to stop recording.
+7. Press **RB** to save the path.
+
+The route is stored in `donkey_path.csv`.
+
+#### 4. Run the autonomous mission
+
+1. Return the vehicle to the original starting point.
+2. Press **B** to reset the GPS origin again.
+3. Press **A** to load the saved path if necessary.
+4. Press **START** to enter `local_angle` and verify steering.
+5. Press **START** again to enter `local` mode.
+6. The RoboCar follows the GPS route and searches for flags.
+7. When a flag is confirmed, the flag mission controls the approach and capture sequence.
+
+The final close-range controller is stored in `flag_override_alterative.py`. The repository also retains `flag_override_new.py`, which documents the earlier drive-through and reverse approach.
 
 ---
 
-## Important DonkeyCar Configuration
+## Project Results
 
-```python
-GPS_SERIAL = "/dev/ttyUSB1"
-GPS_SERIAL_BAUDRATE = 460800
-GPS_DEBUG = True
-HAVE_GPS = True
-GPS_NMEA_PATH = None
+### What Worked
 
-DRIVE_TRAIN_TYPE = "VESC"
-VESC_SERIAL_PORT = "/dev/ttyACM0"
-VESC_BAUDRATE = 115200
-VESC_MAX_SPEED_PERCENT = 0.2
-VESC_STEERING_SCALE = 0.5
-VESC_STEERING_OFFSET = 0.5
+- The RoboCar recorded and followed a GPS route autonomously.
+- YOLO detected the four mission flag colors more reliably than fixed OpenCV color thresholds.
+- The flag controller could override GPS commands and steer toward a detected flag.
+- The vehicle approached the target slowly and stopped once the flag was extremely close.
+- The Jabra speaker announced the detected flag color and the completed capture.
+- The final software combined GPS navigation, flag detection, approach control, stopping, and audio feedback.
 
-USE_JOYSTICK_AS_DEFAULT = True
-JOYSTICK_MAX_THROTTLE = 0.2
-CONTROLLER_TYPE = "F710"
-JOYSTICK_DEVICE_FILE = "/dev/input/js0"
+### Challenges
 
-CAMERA_TYPE = "MOCK"
-```
+- Fixed OpenCV color thresholds failed under changing sunlight, shadows, weather, and time of day.
+- OAK-D exposure and resolution behavior sometimes reduced detection consistency.
+- Loss of a stable RTK fix could cause oscillation and move the target outside the camera's field of view.
+- The original flags were too flimsy, while the improved stands became too large for reliable run-over capture.
+- The team changed the final capture behavior to a controlled close-range stop to match the redesigned stands.
 
-Working GPS path-following settings:
+### Lessons Learned
 
-```python
-PID_P = 0.15
-PID_I = 0.0
-PID_D = 0.30
-PID_THROTTLE = 0.15
-
-PATH_SEARCH_LENGTH = 10
-PATH_LOOK_AHEAD = 1
-PATH_LOOK_BEHIND = 1
-```
-
-These values are specific to Team 7's vehicle and test setup.
+1. Real-world lighting, weather, GPS accuracy, and physical design strongly affect autonomous behavior.
+2. Testing navigation, detection, audio, and capture separately makes integration easier to debug.
+3. YOLO was more robust outdoors than fixed OpenCV color thresholds.
+4. Reliable, repeatable behavior is more valuable than a mechanically complex capture sequence.
 
 ---
 
-## Logitech F710 Controls
+## Future Improvements
 
-| Button | Function |
+- Expand the YOLO dataset across additional lighting conditions, distances, and viewing angles.
+- Improve OAK-D exposure and resolution settings.
+- Continue tuning GPS PID parameters and smooth steering during sharp corrections.
+- Improve recovery after missed detections or temporary RTK instability.
+- Expand environmental scanning and avoid repeatedly searching the same areas.
+- Improve the flag and capture mechanism for greater stability and repeatability.
+- Complete reliable return-to-home behavior.
+
+---
+
+## Final Project Documentation
+
+- [Final Project Presentation](https://canva.link/cs8pddsk6u9s53z) — includes the final Gantt chart
+- [Progress Update 1](https://docs.google.com/presentation/d/1PcwKYoQy9qChWULbBPM9G7U1BvT1Eh_F-7xbM_thogo/edit?usp=sharing)
+- [Progress Update 2](https://docs.google.com/presentation/d/1O7TpyJ2FOgLmPWjsEIvTT7KbvIdUvB2rIri6aobAf58/edit?usp=sharing)
+- [Progress Update 3](https://docs.google.com/presentation/d/1aCJ6-ilCrfEd1O_nXW9QFnMKlvR-987CgDM7sW6m3Tc/edit?usp=sharing)
+- [Progress Update 4](https://docs.google.com/presentation/d/1OJnH7KM3IYKkB1JIBEP8HNq9V_1NIHCVKdMrLFokIOc/edit?usp=sharing)
+- [Final Demonstration Video](https://youtu.be/sbvSZNVWww0)
+
+---
+
+## Robot Design
+
+### CAD Parts
+
+#### Custom-Designed Parts
+
+| Part | CAD Model | Description |
+|---|---|---|
+| Onboard Electronics Enclosure | <img src="https://github.com/user-attachments/assets/b33839b7-614a-4bc9-a7dc-1aeca7dc9e2e" alt="Onboard Electronics Enclosure" width="300" /> | Houses the vehicle's wiring, cooling fan, and most components, excluding the battery and VESC. |
+| Adjustable OAK-D Camera Mount | <img src="https://github.com/user-attachments/assets/88be0d97-1b29-4433-9604-9f34e996385b" alt="Adjustable OAK-D Camera Mount" width="300" /> | Holds the OAK-D camera and allows its viewing angle to be adjusted and secured with screws. |
+| Flagpole Support Base | <img src="https://github.com/user-attachments/assets/3dfd835d-e0c0-46f6-9a8e-d3fc1752e695" alt="Flagpole Support Base" width="300" /> | Holds the bamboo flagpoles upright and improves stability during outdoor testing. |
+| Modular Component Mounting Plate | <img src="https://github.com/user-attachments/assets/ce3d77d3-cd70-4083-94dd-b94ffad9d6cb" alt="Modular Component Mounting Plate" width="300" /> | Provides the main mounting surface and screw holes for securely attaching RoboCar components. |
+
+#### Open-Source Part
+
+| Part | CAD Model | Source |
+|---|---|---|
+| Raspberry Pi 5 Mach 1 Case | <img src="https://github.com/user-attachments/assets/97af9fba-b145-4633-b658-dade33594773" alt="Top of Raspberry Pi 5 Mach 1 Case" width="250" /><br><br><img src="https://github.com/user-attachments/assets/508b19d6-ad04-45c7-98a0-ca625f44a2d0" alt="Bottom of Raspberry Pi 5 Mach 1 Case" width="250" /> | Downloaded from [MakerWorld](https://makerworld.com/en/models/648246-raspberry-pi-5-mach-1-case#profileId-575928); not designed by Team 7. |
+
+### Electronic Hardware
+
+The following circuit diagram shows the connections between the RoboCar's main electronic components.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ce92d7f5-5fea-404b-b286-188b4dab94e4" alt="Team 7 RoboCar Electronic Circuit Diagram" width="800">
+</p>
+
+| Component | Purpose |
 |---|---|
-| B | Reset GPS origin |
-| LB | Toggle path recording |
-| RB | Save path |
-| A | Load path |
-| Y | Erase path |
-| START | Change DonkeyCar driving mode |
+| Raspberry Pi 5 | Main onboard computer |
+| Point One RTK GPS | Localization and GPS-route navigation |
+| VESC | Steering and throttle control |
+| Logitech F710 | Manual driving and mission controls |
+| OAK-D camera | YOLO flag detection |
+| Jabra SPEAK 510 | Detection and capture announcements |
+| Cooling fan | Airflow inside the electronics enclosure |
+| Battery | Vehicle and component power |
 
-The controller should be in **X mode** using the physical X/D switch.
+### Software
 
----
+#### Embedded System
 
-## DonkeyCar Driving Modes
+The autonomous system runs on a Raspberry Pi 5 mounted onboard the RoboCar. The Raspberry Pi connects to the GPS receiver, OAK-D camera, VESC, controller, and USB speaker. Most electronics and wiring are protected inside the custom onboard electronics enclosure, which also contains a cooling fan.
 
-### `user`
+#### DonkeyCar
 
-Manual steering and throttle.
+DonkeyCar provides the main vehicle pipeline for steering, throttle, controller input, GPS path following, and autonomous driving. Team 7 extended the pipeline with YOLO flag detection, flag-control arbitration, close-range capture behavior, and audio feedback.
 
-Use this mode to:
+#### YOLO Flag Detection
 
-- Position the vehicle
-- Reset GPS origin
-- Record a GPS path
-- Safely initialize the system
-
-### `local_angle`
-
-Autonomous steering is enabled.
-
-The vehicle can steer automatically, but the user retains throttle control.
-
-### `local`
-
-Full autonomous operation.
-
-The vehicle can automatically control both steering and throttle.
-
-The flag controller is only allowed to override GPS control while the vehicle is in `local`.
+The OAK-D camera supplies images to a YOLO model trained to recognize pink, yellow, orange, and blue flags. Each detection provides a class, confidence, bounding box, center position, and area. The controller uses the center for steering and the bounding-box area as a proximity estimate.
 
 ---
 
-## Recording a GPS Path
+## Generative AI Use
 
-Start the Point One runner first.
+Generative AI was used throughout development to generate and refine code, debug software and hardware-integration problems, interpret error messages, and assist with integrating the GPS, YOLO detection, vehicle-control, and audio subsystems.
 
-Then start DonkeyCar:
+### LLM Prompts Used During This Project
 
-```bash
-cd ~/gpscar
-python3 manage.py drive
-```
+<details>
+  <summary>View the prompts used during development</summary>
 
-Remain in `user` mode.
-
-At the exact physical starting point:
-
-1. Press **B once** to reset the GPS origin.
-2. Verify `pos/x` and `pos/y` are near zero.
-3. Press **LB once** to begin recording.
-4. Manually drive one smooth lap.
-5. Return to the starting point.
-6. Press **LB once** to stop recording.
-7. Press **RB once** to save the path.
-
-The path is saved as:
-
-```text
-~/gpscar/donkey_path.csv
-```
-
-The current successful Team 7 path contains approximately **352 points**.
-
----
-
-## Running the Saved GPS Path
-
-Place the vehicle at the same physical starting point used during recording.
-
-While in `user` mode:
-
-1. Press **B once** at the physical start point.
-2. Verify `pos/x` and `pos/y` are near zero.
-3. Make sure the saved path is loaded.
-4. Press **START once** to enter `local_angle`.
-5. Verify autonomous steering behaves correctly.
-6. Press **START again** to enter `local`.
-
-The car should now follow the recorded GPS path.
-
----
-
-# YOLO Flag Detection
-
-The flag detector uses the OAK-D camera and a YOLO model.
-
-The mission contains four flag classes:
-
-```text
-PINK
-YELLOW
-ORANGE
-BLUE
-```
-
-YOLO replaces the previous HSV color-thresholding and contour-based OpenCV detector.
-
-The new architecture is:
-
-```text
-OAK-D CAMERA
-     |
-     v
-YOLO MODEL
-     |
-     v
-CLASS + CONFIDENCE + BOUNDING BOX
-     |
-     v
-FLAG DETECTION DICTIONARY
-     |
-     v
-FlagMissionPart
-     |
-     v
-TRACK -> HIT -> REVERSE
-     |
-     v
-FlagDriveSelector
-     |
-     v
-VESC
-```
-
-## YOLO Output Format
-
-The important part of the YOLO integration is converting each detection into the same format already expected by `FlagMissionPart`.
-
-```python
-{
-    "color": color_name,
-    "cx": center_x,
-    "cy": center_y,
-    "x": x1,
-    "y": y1,
-    "w": x2 - x1,
-    "h": y2 - y1,
-    "area": (x2 - x1) * (y2 - y1)
-}
-```
-
-Because the rest of the mission already consumes this format, the GPS and flag-control logic does not need to be rewritten.
-
----
-
-## YOLO Detection Logic
-
-A starting confidence threshold is:
-
-```python
-YOLO_CONFIDENCE = 0.50
-```
-
-Conceptually:
-
-```python
-def detect_flag(frame):
-    results = model(frame)
-
-    best_detection = None
-    best_confidence = 0.0
-
-    for result in results:
-        for box in result.boxes:
-
-            confidence = float(box.conf[0])
-
-            if confidence < YOLO_CONFIDENCE:
-                continue
-
-            class_id = int(box.cls[0])
-
-            color_name = model.names[class_id].upper()
-
-            if color_name not in {
-                "PINK",
-                "YELLOW",
-                "ORANGE",
-                "BLUE"
-            }:
-                continue
-
-            x1, y1, x2, y2 = map(
-                int,
-                box.xyxy[0].tolist()
-            )
-
-            if confidence > best_confidence:
-
-                best_confidence = confidence
-
-                best_detection = {
-                    "color": color_name,
-                    "cx": (x1 + x2) // 2,
-                    "cy": (y1 + y2) // 2,
-                    "x": x1,
-                    "y": y1,
-                    "w": x2 - x1,
-                    "h": y2 - y1,
-                    "area": (x2 - x1) * (y2 - y1)
-                }
-
-    return best_detection
-```
-
-The exact model-loading code depends on the exported YOLO model format, such as:
-
-```text
-.pt
-.onnx
-.blob
-```
-
----
-
-# Flag Mission State Machine
-
-The YOLO model handles detection only.
-
-The existing flag mission handles vehicle behavior:
-
-```text
-GPS
- |
- | flag detected
- v
-TRACKING
- |
- | close + centered
- v
-HIT
- |
- | flag disappears / timeout
- v
-REVERSE
- |
- | reverse complete
- v
-GPS
-```
-
-## Mission Parameters
-
-```python
-MIN_AREA = 250
-TRIGGER_AREA = 1000
-SPOTTED_FRAMES = 3
-
-IMAGE_WIDTH = 640
-IMAGE_HEIGHT = 480
-IMAGE_CENTER = 320
-CENTER_DEADBAND = 35
-
-APPROACH_THROTTLE = 0.18
-HIT_THROTTLE = 0.18
-REVERSE_THROTTLE = -0.15
-
-STEERING_GAIN = 0.0020
-MAX_STEERING = 0.35
-
-HIT_START_AREA = 30000
-
-LOST_FRAMES_FOR_KNOCKDOWN = 8
-LOST_FRAMES_BEFORE_ABORT = 30
-
-MAX_HIT_TIME = 2.0
-REVERSE_TIME = 3
-
-YOLO_CONFIDENCE = 0.50
-
-SPEAKER_DEVICE = "plughw:2,0"
-```
-
-YOLO bounding-box area replaces the old OpenCV contour area:
-
-```python
-area = (x2 - x1) * (y2 - y1)
-```
-
-This means the existing distance/approach logic can still use apparent flag size.
-
----
-
-# Flag Override Integration
-
-Current integrated flag logic:
-
-```text
-~/gpscar/flag_override_new.py
-```
-
-`manage.py` imports:
-
-```python
-from flag_override_new import FlagMissionPart, FlagDriveSelector
-```
-
-The mission part is added to the DonkeyCar pipeline:
-
-```python
-flag_mission = FlagMissionPart()
-
-V.add(
-    flag_mission,
-    inputs=['pos/x', 'pos/y'],
-    outputs=[
-        'flag/active',
-        'flag/steering',
-        'flag/throttle'
-    ],
-    threaded=True
-)
-```
-
-The selector receives both GPS control and flag control:
-
-```python
-V.add(
-    FlagDriveSelector(),
-    inputs=[
-        'user/mode',
-        'base/steering',
-        'base/throttle',
-        'flag/active',
-        'flag/steering',
-        'flag/throttle'
-    ],
-    outputs=['steering', 'throttle']
-)
-```
-
-Selector behavior:
-
-```python
-if (
-    user_mode == "local"
-    and flag_active
-):
-    return (
-        flag_steering,
-        flag_throttle
-    )
-
-return (
-    gps_steering,
-    gps_throttle
-)
-```
-
-Therefore:
-
-```text
-NO FLAG
-   |
-   v
-GPS CONTROLS CAR
-
-
-FLAG ACTIVE + LOCAL MODE
-   |
-   v
-FLAG CONTROLLER OVERRIDES GPS
-```
-
-When the flag mission finishes reversing:
-
-```text
-flag_active = False
-```
-
-and control automatically returns to GPS.
-
----
-
-# Audio Output
-
-The Jabra SPEAK 510 is used for flag announcements.
-
-Example:
-
-```bash
-espeak --stdout "blue flag captured" | aplay -D plughw:2,0
-```
-
-Speaker device:
-
-```text
-plughw:2,0
-```
-
-The ALSA device number can change after reconnecting USB hardware.
-
----
-
-
-# Project Results
-
-The sections above describe the implemented system and its intended mission flow. Final outdoor testing showed that several major subsystems worked, while full capture-and-path-recovery behavior was still sensitive to real-world conditions.
-
-## What Worked
-
-### GPS Path Following
-
-The RoboCar successfully followed the recorded GPS route and completed autonomous laps when the path was not interrupted.
-
-### Autonomous Search / Flag Approach
-
-While completing GPS-guided laps, the RoboCar searched for the flag. Once YOLO detected a target, the integrated control logic could change steering toward the detected flag.
-
-### YOLO Flag Detection
-
-YOLO flag detection was more reliable across changing outdoor lighting conditions than the team's original OpenCV color-thresholding approach. The original method depended on fixed color thresholds, which were too sensitive to sunlight, shadows, and other environmental changes.
-
-### Voice Integration
-
-The combined scripts successfully triggered a voice announcement when the RoboCar performed the flag-capture action.
-
-## Challenges and What Did Not Work Reliably
-
-### OpenCV Color Detection
-
-The original OpenCV detector used fixed color thresholds and did not detect the flags reliably enough under real outdoor conditions. It was replaced by the YOLO model.
-
-### Changing Outdoor Lighting
-
-Sunlight, shadows, weather, and time-of-day changes altered the appearance of the flags throughout testing and reduced detection consistency.
-
-### Camera Configuration
-
-The OAK-D camera was sometimes overexposed or produced inconsistent resolution/configuration behavior, which made reliable detection and capture more difficult.
-
-### Driving Oscillation and RTK Fix
-
-When the vehicle lost a stable RTK fix, it could oscillate or stray away from the intended course. Even with PID tuning, this could cause the target flag to leave the camera's field of view.
-
-### Physical Flag Design
-
-The physical flag had to resist wind while still being easy enough for the RoboCar to knock down. The original supports were not consistently stable, so the mechanical design also affected capture reliability.
-
-### Capture and GPS Path Recovery
-
-Driving through the flag changed the RoboCar's heading. Although the software architecture returns control to GPS after the capture sequence, final testing showed that the vehicle did **not consistently recover back onto its original GPS path after capture**.
-
-This is an important distinction between the implemented control flow and the reliability observed during final outdoor testing.
-
-# Lessons Learned
-
-The final project produced four main takeaways:
-
-1. **Real-world conditions matter.** Lighting, weather, GPS accuracy, camera behavior, and physical course conditions significantly affected autonomous performance.
-2. **Test components separately.** Testing navigation, detection, voice, and capture independently made integration and debugging easier.
-3. **Choose robust solutions.** YOLO detection was more reliable than fixed OpenCV color thresholds for this outdoor application.
-4. **Prioritize reliability.** Consistent performance in real conditions was more valuable than perfect results under controlled conditions.
-
-# Future Improvements
-
-With additional development time, the team would focus on:
-
-- Expanding the YOLO training dataset with images collected under different lighting conditions, distances, and viewing angles.
-- Improving OAK-D exposure and resolution settings.
-- Improving the RoboCar's search behavior so it can scan more of the surrounding environment.
-- Tracking previously searched areas to reduce repeated searching.
-- Further tuning the GPS PID controller.
-- Adjusting throttle during sharp corrections and adding steering smoothing to reduce oscillation.
-- Improving search and approach logic so the vehicle can recover from temporary missed detections.
-- Redesigning the physical capture mechanism and flag supports for better wind resistance and repeatability.
-- Performing additional full-system outdoor testing.
-- Developing reliable return-to-home behavior after the mission is complete.
-
----
-
-# Troubleshooting
-
-## Huge CTE When Starting Autonomous Mode
-
-If GPS positions look like:
-
-```text
-477976, 3638157
-```
-
-while the saved path contains coordinates near:
-
-```text
-0, 0
-```
-
-the GPS origin was not reset.
-
-Return to `user`, place the vehicle at the original starting point, and press:
-
-```text
-B
-```
-
-once.
-
-Then verify `pos/x` and `pos/y` are near zero before entering autonomous mode.
-
----
-
-## Car Detects Flag but Stops Moving
-
-The flag controller replaces GPS throttle while tracking.
-
-If:
-
-```python
-APPROACH_THROTTLE
-```
-
-is below the drivetrain's usable throttle range, the vehicle may detect and steer toward the flag but not physically move.
-
-The current value is:
-
-```python
-APPROACH_THROTTLE = 0.18
-```
-
----
-
-## Debugging Flag Detection
-
-A useful temporary debug message inside the camera thread is:
-
-```python
-if detection is not None:
-    print(
-        f"CAM DETECT {detection['color']} | "
-        f"area={int(detection['area'])} | "
-        f"cx={detection['cx']}"
-    )
-```
-
-Expected output:
-
-```text
-CAM DETECT BLUE | area=15447 | cx=289
-```
-
-This verifies that the camera and detector are producing detections before the vehicle-control logic is considered.
-
----
-
-## F710 Stops Working
-
-Check the physical **X/D** switch.
-
-Team 7 uses:
-
-```text
-X mode
-```
-
-The controller normally appears at:
-
-```text
-/dev/input/js0
-```
-
----
-
-## OAK-D / DepthAI API Errors
-
-The DonkeyCar `(env)` environment uses the DepthAI 2.x API.
-
-Use:
-
-```bash
-conda deactivate
-source ~/env/bin/activate
-cd ~/gpscar
-```
-
-before running the integrated camera/DonkeyCar software.
-
----
-
-# Repository Structure
-
-```text
-gpscar/
-├── manage.py
-├── myconfig.py
-├── flag_override.py
-├── flag_override_new.py
-├── donkey_path.csv
-└── models/
-    └── <YOLO_MODEL_FILE>
-```
-
----
-
-# LLM Prompts Used During This Project
-
-The following LLM prompts were used during the development, debugging, and integration of this project.
-
-### 1. GPS Autonomous Navigation
+#### 1. GPS Autonomous Navigation
 
 Set up the robot to use **PointOne RTK GPS** for autonomous navigation. The system should be able to record a manually driven route, save that route, reset its origin at the starting position, and then autonomously follow the recorded GPS loop. The GPS system should remain the robot's normal navigation method whenever no flag mission is active.
 
-### 2. Camera-Based Flag Detection
+#### 2. Camera-Based Flag Detection
 
 Use the **OAK-D camera** to detect mission flags while the robot is driving. The required flag colors are **pink, yellow, orange, and blue**. Detection was initially implemented using OpenCV/color thresholding, but the final approach should use a **YOLO object-detection model**. Detection should identify the flag's color, location in the camera image, approximate size, and confidence without unnecessary filtering or overly restrictive detection rules.
 
-### 3. GPS and Flag-Mission Integration
+#### 3. GPS and Flag-Mission Integration
 
 The robot should continuously follow its GPS route until a valid flag is detected. Once a flag is confirmed, the flag mission should temporarily **override GPS steering and throttle commands**. After the flag mission finishes, control should automatically return to GPS navigation so the robot can continue following the original loop.
 
-### 4. Flag Approach and Steering
+#### 4. Flag Approach and Steering
 
 After detecting a flag, the robot should actively drive toward it rather than simply stopping or waiting. The camera should determine whether the flag is to the left or right of the center of the image, and the robot should steer accordingly while continuing to move forward. As the flag becomes larger in the camera image, the system should recognize that the robot is getting closer.
 
-### 5. Flag Capture Sequence
+#### 5. Flag Capture Sequence
 
-The required behavior for each flag is:
+The original requested behavior was:
 
-**Detect flag → announce “[color] flag spotted” → approach and center on flag → stop for approximately 2 seconds → drive forward through the flag → determine that the flag has been knocked down/captured → announce “[color] flag captured” → reverse to clear the flag → return to GPS navigation.**
+**Detect flag — announce "[color] flag spotted" — approach and center on flag — stop for approximately 2 seconds — drive forward through the flag — determine that the flag has been knocked down/captured — announce "[color] flag captured" — reverse to clear the flag — return to GPS navigation.**
 
+**Final design change:** The larger flag stands made the run-over method impractical. The final demonstration instead used: **detect flag — announce "[color] flag detected" — approach slowly and center — stop at close range — announce "[color] flag captured."**
 
-### 6. Lost-Flag Behavior
+#### 6. Lost-Flag Behavior
 
 If the flag disappears while the robot is still approaching and has not reached the capture stage, the robot should eventually abandon the attempt and return to GPS rather than wandering around searching for it. No sweeping or dedicated flag-search behavior is required. If the flag disappears after the robot has already begun driving through it, that disappearance can be used as evidence that the flag has been knocked down.
 
-### 7. Audio Feedback
+#### 7. Audio Feedback
 
-A **Jabra USB speaker** should provide audible mission feedback. Each of the four colors should have both a spotted and captured announcement, such as **“blue flag spotted”** and **“blue flag captured.”** The announcements should correspond to actual mission-state transitions.
+A **Jabra USB speaker** should provide audible mission feedback. Each of the four colors should have both a detected and captured announcement, such as **"blue flag detected"** and **"blue flag captured."** The announcements should correspond to actual mission-state transitions.
 
-### 8. Standalone Flag Testing
+#### 8. Standalone Flag Testing
 
 The flag-detection system should also be testable independently from the GPS/autonomous-driving system. A camera-only test should allow YOLO detection and the associated flag information/audio to be checked without starting GPS navigation or commanding the motors.
 
-### 9. Safety and Implementation Requirements
+#### 9. Safety and Implementation Requirements
 
 The existing working GPS navigation should be preserved while flag functionality is added. Changes should be minimal and focused rather than restructuring the entire DonkeyCar system. Flag control should only override navigation during an active autonomous flag mission, and testing should distinguish clearly between **camera-only tests that cannot move the robot** and **integrated tests capable of commanding steering and throttle**.
 
-# Steps
+</details>
 
-- [x] Point One RTK GPS receiving corrections
-- [x] GPS position available inside DonkeyCar
-- [x] F710 manual vehicle control
-- [x] GPS origin reset
-- [x] GPS path recording and saving
-- [x] Autonomous GPS path following
-- [x] OAK-D camera integration
-- [x] Four mission flag classes: PINK, YELLOW, ORANGE, BLUE
-- [x] Flag approach / hit / reverse state machine
-- [x] Jabra audio announcements
-- [x] GPS/flag control selector integration
-- [x] Install/export final YOLO model on Raspberry Pi
-- [x] Replace HSV `detect_flag()` with YOLO inference
-- [x] Validate YOLO detections inside `manage.py`
-- [x] Final end-to-end GPS + YOLO flag mission validation
+---
+
+## Repository Contents
+
+| File | Purpose |
+|---|---|
+| `manage.py` | Main DonkeyCar pipeline and subsystem integration |
+| `flag_override_alterative.py` | Final close-range flag capture controller used for the revised behavior |
+| `flag_override_new.py` | Earlier drive-through, knock-down, and reverse controller |
+| `myconfig.py` | GPS, VESC, controller, throttle, steering, and PID configuration |
+| `train.py` | YOLO model-training script |
+| `weights.pt` | Trained YOLO flag-detection weights |
+| `donkey_path.csv` | Recorded GPS route |
+| `calibrate.py` | Vehicle calibration utility |
+
+---
+
+## Contact
+
+- Maisarah Fahmy - [m4fahmy@ucsd.edu](mailto:m4fahmy@ucsd.edu)
+- Grisvian Tandy - [gtandy@ucsd.edu](mailto:gtandy@ucsd.edu)
+- Pragnya Korti - [pkorti@ucsd.edu](mailto:pkorti@ucsd.edu)
+
+<p align="right"><a href="#top">Back to top</a></p>
